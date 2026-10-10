@@ -1,13 +1,18 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import './config/connectDB'
+import cors from 'cors' ;
+import stockRoute from "./routes/stockRoute"
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors({
+  credentials: true,
+}));
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-  res.json({ message: 'TypeScript Backend is Running!' });
-});
+app.use('/stock', stockRoute);
+ 
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
